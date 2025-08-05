@@ -170,4 +170,76 @@ Order Book Transaction:
     "TakerGets": "640593690",
     "TakerPays": {
       "currency": "524C555344000000000000000000000000000000",
-      "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9
+      "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+      "value": "1912.90885"
+    },
+    ...
+  },
+  "ledger_index": 97961142,
+  "validated": true
+}
+---
+```
+
+#### bookchanges_stream.rs
+Tracks order book changes across all trading pairs.
+
+```json
+Connected to the XRPL!
+Listening for book changes...
+Book Changes:
+{
+  "ledger_index": 97961142,
+  "ledger_hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
+  "changes": [
+    {
+      "currency_a": "XRP_drops",
+      "currency_b": "rDgBV9WrwJ3WwtRWhkekMhDas3muFeKvoS/7372667800000000000000000000000000000000",
+      "close": "8.437525048902489",
+      "volume_a": "12000000",
+      "volume_b": "1422218"
+    },
+    ...
+  ],
+  "type": "bookChanges",
+  "validated": true
+}
+---
+```
+
+#### serverinfo_stream.rs
+Retrieves server info for each validated ledger.
+
+```json
+Connected to the XRPL!
+Listening for ledger events and retrieving server info...
+Server Info:
+{
+  "info": {
+    "build_version": "2.5.0",
+    "server_state": "full",
+    "validated_ledger": {
+      "seq": 97961142,
+      "hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
+      ...
+    },
+    "uptime": 568402,
+    "peers": 33,
+    ...
+  }
+}
+---
+```
+
+## Notes
+- All scripts connect to the public XRPL WebSocket server `wss://xrplcluster.com`.
+- Outputs are logged to the console in JSON format for easy parsing.
+- Error handling is minimal; errors are logged via `eprintln!`.
+- Each binary uses `tokio-tungstenite` for WebSocket communication and `serde_json` for JSON parsing.
+- For detailed API documentation, see the [XRPL WebSocket API](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/).
+
+## Contributing
+Feel free to fork the repository, add new stream monitors, or enhance existing scripts (e.g., with better error handling or output formatting). Submit pull requests to `https://github.com/Handy4ndy/HandySockets`.
+
+## Author
+Handy_4ndy
