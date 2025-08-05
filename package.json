@@ -1,0 +1,16 @@
+{
+  "name": "handy_websockets",
+  "version": "1.0.0",
+  "description": "A handy js library for working with WebSocket connections",
+  "main": "ledgerStream.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "xrpl": "^4.4.0"
+  },
+  "keywords": ["xrpl", "websockets", "ledger", "streaming"],
+  "author": "Handy_4ndy",
+  "license": "ISC"
+}
