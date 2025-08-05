@@ -27,7 +27,7 @@ The `handy_websockets` library includes scripts to connect to the XRPL via WebSo
 1. Clone or download the repository:
    ```bash
    git clone https://github.com/Handy4ndy/HandySockets.git
-   cd websockets
+   cd ~/Documents/GitHub/HandySockets
    ```
 2. Install dependencies:
    ```bash
@@ -37,7 +37,7 @@ The `handy_websockets` library includes scripts to connect to the XRPL via WebSo
 
 ## Usage
 
-Each script can be run independently with Node.js. Ensure you’re in the project directory (`~/Documents/GitHub/websockets`) and run a script using:
+Each script can be run independently with Node.js. Ensure you’re in the project directory (`~/Documents/GitHub/HandySockets`) and run a script using:
 
 ```bash
 node <script-name>.js
