@@ -26,7 +26,7 @@ The `handy_websockets` library includes scripts to connect to the XRPL via WebSo
 
 1. Clone or download the repository:
    ```bash
-   git clone https://github.com/HandyBoot/websockets.git
+   git clone https://github.com/Handy4ndy/HandySockets.git
    cd websockets
    ```
 2. Install dependencies:
@@ -210,10 +210,7 @@ Retrieves server info for each validated ledger.
 - For detailed API documentation, see the [XRPL WebSocket API](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/).
 
 ## Contributing
-Feel free to fork the repository, add new stream monitors, or enhance existing scripts (e.g., with better error handling or output formatting). Submit pull requests to `https://github.com/HandyBoot/websockets`.
+Feel free to fork the repository, add new stream monitors, or enhance existing scripts (e.g., with better error handling or output formatting). Submit pull requests to `https://github.com/Handy4ndy/HandySockets`.
 
 ## Author
 Handy_4ndy
-
-## License
-ISC (see `package.json` for details).
