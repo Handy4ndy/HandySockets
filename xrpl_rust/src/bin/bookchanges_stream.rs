@@ -1,14 +1,19 @@
-use tokio_tungstenite::{connect_async, tungstenite::protocol::Message};
+use tokio_tungstenite::{connect_async, tungstenite::Message};
 use serde_json::{Value, json};
-use tokio::main;
 use futures_util::{SinkExt, StreamExt};
 
-#[main]
+/*
+Book changes stream monitors order book changes across all trading pairs.
+Since book_changes stream requires ledger index, we subscribe to ledger stream
+and request book changes for each new validated ledger.
+
+https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#book-changes-stream
+*/
+
+#[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Connect to XRPL WebSocket
-    let (ws_stream, _) = connect_async("wss://xrplcluster.com")
-        .await
-        .map_err(|e| format!("Failed to connect to the XRPL: {}", e))?;
+    let (ws_stream, _) = connect_async("wss://xrplcluster.com").await?;
     println!("Connected to the XRPL!");
 
     let (mut write, mut read) = ws_stream.split();
@@ -18,15 +23,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "command": "subscribe",
         "streams": ["ledger"]
     });
-    write
-        .send(Message::Text(serde_json::to_string(&subscribe_request)?))
-        .await
-        .map_err(|e| format!("Failed to subscribe to ledger stream: {}", e))?;
+    write.send(Message::Text(serde_json::to_string(&subscribe_request)?)).await?;
     println!("Listening for order book changes...");
 
     // Listen for ledgerClosed messages
     while let Some(msg) = read.next().await {
-        let msg = msg.map_err(|e| format!("Failed to receive message: {}", e))?;
+        let msg = msg?;
         if let Message::Text(text) = msg {
             let value: Value = serde_json::from_str(&text)?;
             if value.get("type").and_then(|t| t.as_str()) == Some("ledgerClosed") {
@@ -41,14 +43,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "command": "book_changes",
                     "ledger_index": ledger_index
                 });
-                write
-                    .send(Message::Text(serde_json::to_string(&book_changes_request)?))
-                    .await
-                    .map_err(|e| format!("Failed to send book_changes request: {}", e))?;
+                write.send(Message::Text(serde_json::to_string(&book_changes_request)?)).await?;
 
                 // Process book_changes response
                 if let Some(book_msg) = read.next().await {
-                    let book_msg = book_msg.map_err(|e| format!("Failed to receive book_changes message: {}", e))?;
+                    let book_msg = book_msg?;
                     if let Message::Text(book_text) = book_msg {
                         let book_value: Value = serde_json::from_str(&book_text)?;
                         if let Some(changes) = book_value.get("result").and_then(|r| r.get("changes")) {
