@@ -128,3 +128,33 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Rust build artifacts
+/target/
+/**/*.rs.bk
+
+# Cargo lock file (optional, include if dependencies are stable)
+# Cargo.lock
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Rust-specific temporary files
+*.pdb
+*.exe
+*.dll
+*.so
+*.dylib
