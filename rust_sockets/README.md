@@ -1,6 +1,6 @@
 # Handy WebSockets for XRPL (Rust)
 
-A lightweight Rust library for monitoring XRP Ledger (XRPL) activity using WebSocket streams. This project provides small, runnable scripts to subscribe to various XRPL streams, such as ledgers, transactions, consensus phases, order book changes, validations, and account activity, using `tokio-tungstenite` for WebSocket communication. It mirrors the functionality of the JavaScript [`HandySockets`](https://github.com/HandyBoot/websockets) project.
+A lightweight Rust collection for monitoring XRP Ledger (XRPL) activity using WebSocket streams. This project provides small, runnable scripts to subscribe to various XRPL streams, such as ledgers, transactions, consensus phases, order book changes, validations, and account activity, using `tokio-tungstenite` for WebSocket communication. It mirrors the functionality of the JavaScript [`HandySockets`](https://github.com/HandyBoot/websockets) project.
 
 ## Overview
 
