@@ -6,14 +6,14 @@ A collection of lightweight JavaScript and Rust scripts for monitoring XRP Ledge
 
 The `HandySockets` collection provides simple, runnable scripts to interact with XRPL WebSocket APIs, ideal for developers exploring real-time XRPL monitoring. The JavaScript scripts use the `xrpl` library, while the Rust scripts use `tokio-tungstenite` for reliable WebSocket communication. Both projects subscribe to XRPL streams and commands, as defined in the [XRPL WebSocket API](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/), including:
 
-- **[Ledger Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#ledger-stream)**: Monitors validated ledgers, providing details like ledger index, hash, and transaction count.
-- **[Consensus Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#consensus-stream)**: Tracks consensus phase changes (`open`, `establish`, `accepted`) during the XRPL consensus process.
-- **[Validations Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#validations-stream)**: Captures validation messages (votes) from XRPL validators.
-- **[Transactions Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#transaction-streams)**: Monitors all validated transactions across the XRPL network.
 - **[Accounts Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#accounts)**: Tracks transactions affecting a specific account (e.g., `rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`).
-- **[Order Book Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#order-book-streams)**: Monitors transactions affecting the XRP/RLUSD order book.
+- **[Consensus Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#consensus-stream)**: Tracks consensus phase changes (`open`, `establish`, `accepted`) during the XRPL consensus process.
 - **[Book Changes](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#book-changes-stream)**: Tracks order book changes across all trading pairs using the `ledger` stream and `book_changes` command.
+- **[Ledger Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#ledger-stream)**: Monitors validated ledgers, providing details like ledger index, hash, and transaction count.
+- **[Order Book Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#order-book-streams)**: Monitors transactions affecting the XRP/RLUSD order book.
 - **[Server Info](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/server-info-methods)**: Retrieves server state for each validated ledger.
+- **[Transactions Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#transaction-streams)**: Monitors all validated transactions across the XRPL network.
+- **[Validations Stream](https://xrpl.org/docs/references/http-websocket-apis/public-api-methods/subscription-methods/subscribe#validations-stream)**: Captures validation messages (votes) from XRPL validators.
 
 ## Projects and Scripts
 
@@ -21,7 +21,7 @@ The `HandySockets` collection provides simple, runnable scripts to interact with
 - **`accountStream.js`**: Subscribes to the `accounts` stream for `rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`.
 - **`bookchangesStream.js`**: Subscribes to the `ledger` stream and requests `book_changes`.
 - **`consensusStream.js`**: Subscribes to the `consensus` stream for phase changes.
-- **`ledgerStream.js`**: Subscribes to the `ledger` stream, logs validated ledgers, and requests `server_info`.
+- **`ledgerStream.js`**: Subscribes to the `ledger` stream, logs validated ledgers.
 - **`orderbookStream.js`**: Subscribes to the XRP/RLUSD order book stream.
 - **`serverinfoStream.js`**: Subscribes to the `ledger` stream and requests `server_info`.
 - **`transactionStream.js`**: Subscribes to the `transactions` stream for all transactions.
@@ -31,7 +31,7 @@ The `HandySockets` collection provides simple, runnable scripts to interact with
 - **`account_stream.rs`**: Subscribes to the `accounts` stream for `rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`.
 - **`book_changes_stream.rs`**: Subscribes to the `ledger` stream and requests `book_changes`.
 - **`consensus_stream.rs`**: Subscribes to the `consensus` stream for phase changes.
-- **`ledger_stream.rs`**: Subscribes to the `ledger` stream, logs validated ledgers, and requests `server_info`.
+- **`ledger_stream.rs`**: Subscribes to the `ledger` stream, logs validated ledgers.
 - **`orderbook_stream.rs`**: Subscribes to the XRP/RLUSD order book stream.
 - **`serverinfoStream.rs`**: Subscribes to the `ledger` stream and requests `server_info`.
 - **`transaction_stream.rs`**: Subscribes to the `transactions` stream for all transactions.
