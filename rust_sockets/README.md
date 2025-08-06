@@ -1,6 +1,6 @@
 # Handy WebSockets for XRPL (Rust)
 
-A lightweight Rust library for monitoring XRP Ledger (XRPL) activity using WebSocket streams. This project provides small, runnable scripts to subscribe to various XRPL streams, such as ledgers, transactions, consensus phases, order book changes, validations, and account activity, using `tokio-tungstenite` for WebSocket communication. It mirrors the functionality of the JavaScript [`handy_websockets`](https://github.com/HandyBoot/websockets) project.
+A lightweight Rust library for monitoring XRP Ledger (XRPL) activity using WebSocket streams. This project provides small, runnable scripts to subscribe to various XRPL streams, such as ledgers, transactions, consensus phases, order book changes, validations, and account activity, using `tokio-tungstenite` for WebSocket communication. It mirrors the functionality of the JavaScript [`HandySockets`](https://github.com/HandyBoot/websockets) project.
 
 ## Overview
 
@@ -8,14 +8,14 @@ The `xrpl_rust` project includes scripts to connect to the XRPL via WebSocket (`
 
 ### Scripts and Their Purposes
 
-- **`ledger_stream.rs`**: Subscribes to the `ledger` stream to monitor validated ledgers, logging details like ledger index, hash, and transaction count.
-- **`consensus_stream.rs`**: Tracks consensus phase changes (`open`, `establish`, `accepted`) during the XRPL consensus process.
-- **`validation_stream.rs`**: Monitors validation messages (votes) from XRPL validators during consensus.
-- **`transaction_stream.rs`**: Captures all validated transactions across the XRPL network.
 - **`account_stream.rs`**: Tracks transactions affecting a specific account (`rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`).
-- **`orderbook_stream.rs`**: Monitors the XRP/RLUSD order book for transaction updates.
+- **`consensus_stream.rs`**: Tracks consensus phase changes (`open`, `establish`, `accepted`) during the XRPL consensus process.
 - **`book_changes_stream.rs`**: Tracks order book changes across all trading pairs by subscribing to the `ledger` stream and requesting `book_changes`.
+- **`ledger_stream.rs`**: Subscribes to the `ledger` stream to monitor validated ledgers, logging details like ledger index, hash, and transaction count.
+- **`orderbook_stream.rs`**: Monitors the XRP/RLUSD order book for transaction updates.
 - **`serverinfo_stream.rs`**: Retrieves server information for each validated ledger via the `ledger` stream and `server_info` command.
+- **`transaction_stream.rs`**: Captures all validated transactions across the XRPL network.
+- **`validation_stream.rs`**: Monitors validation messages (votes) from XRPL validators during consensus.
 
 ## Prerequisites
 
@@ -58,139 +58,31 @@ cargo run --bin ledger_stream
 
 Below are sample outputs from running the scripts, showing the type of data each captures.
 
-#### ledger_stream.rs
-Monitors validated ledgers.
-
-```json
-Connected to the XRPL!
-Listening for validated ledgers...
-New Validated Ledger:
-{
-  "fee_base": 10,
-  "ledger_hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
-  "ledger_index": 97961142,
-  "ledger_time": 807722931,
-  "reserve_base": 1000000,
-  "reserve_inc": 200000,
-  "txn_count": 131,
-  "type": "ledgerClosed",
-  "validated_ledgers": "32570-97961142"
-}
----
-```
-
-#### consensus_stream.rs
-Tracks consensus phase changes.
-
-```json
-Connected to the XRPL!
-Listening for consensus phase changes...
-Consensus Phase Change:
-{
-  "consensus": "accepted",
-  "type": "consensusPhase"
-}
----
-Consensus Phase Change:
-{
-  "consensus": "open",
-  "type": "consensusPhase"
-}
----
-```
-
-#### validation_stream.rs
-Captures validator votes.
-
-```json
-Connected to the XRPL!
-Listening for validation events...
-Validation Received:
-{
-  "type": "validationReceived",
-  "ledger_index": "97961142",
-  "ledger_hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
-  ...
-}
----
-```
-
-#### transaction_stream.rs
-Monitors all validated transactions.
-
-```json
-Connected to the XRPL!
-Listening for transaction events...
-New Transaction Event:
-{
-  "type": "transaction",
-  "transaction": {
-    "TransactionType": "OfferCreate",
-    "Account": "rfmdBKhtJw2J22rw1JxQcchQTM68qzE4N2",
-    ...
-  },
-  "ledger_index": 97961142,
-  "validated": true
-}
----
-```
-
 #### account_stream.rs
 Tracks transactions for `rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`.
 
 ```json
-Connected to the XRPL!
-Listening for transactions on account: rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De
-New Transaction:
 {
-  "type": "transaction",
-  "transaction": {
+  "close_time_iso": "2025-08-05T15:27:40Z",
+  "ledger_index": 97957821,
+  "hash": "848E9DD43593111500E681B636A188773AC6D934574B2F8CBAB963759FDC387B",
+  "tx_json": {
     "TransactionType": "Payment",
-    "Account": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+    "Account": "rwtk4ZvffLedRFjTE2tyyTj6em58urK2UL",
     ...
   },
-  "ledger_index": 97961142,
-  "validated": true
-}
----
-```
-
-#### orderbook_stream.rs
-Monitors XRP/RLUSD order book transactions.
-
-```json
-Connected to the XRPL!
-Listening for XRP/RLUSD order book changes...
-Order Book Transaction:
-{
   "type": "transaction",
-  "transaction": {
-    "TransactionType": "OfferCreate",
-    "Account": "rpiFwLYi6Gb1ESHYorn2QG1WU5vw2u4exQ",
-    "TakerGets": "640593690",
-    "TakerPays": {
-      "currency": "524C555344000000000000000000000000000000",
-      "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
-      "value": "1912.90885"
-    },
-    ...
-  },
-  "ledger_index": 97961142,
   "validated": true
 }
----
 ```
 
 #### bookchanges_stream.rs
 Tracks order book changes across all trading pairs.
 
 ```json
-Connected to the XRPL!
-Listening for book changes...
-Book Changes:
 {
-  "ledger_index": 97961142,
-  "ledger_hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
+  "ledger_index": 97957849,
+  "ledger_hash": "589D0F6B0CC0FE57419BF9ADB9E91C774361B80803FEC8772D396D2A5362CC21",
   "changes": [
     {
       "currency_a": "XRP_drops",
@@ -204,23 +96,78 @@ Book Changes:
   "type": "bookChanges",
   "validated": true
 }
----
+```
+
+#### consensus_stream.rs
+Tracks consensus phase changes.
+
+```json
+{
+  "consensus": "open",
+  "type": "consensusPhase"
+}
+{
+  "consensus": "accepted",
+  "type": "consensusPhase"
+}
+{
+  "consensus": "estabilsh",
+  "type": "consensusPhase"
+}
+```
+
+#### ledger_stream.rs
+Monitors validated ledgers.
+
+```json
+{
+  "fee_base": 10,
+  "ledger_hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
+  "ledger_index": 97961142,
+  "ledger_time": 807722931,
+  "reserve_base": 1000000,
+  "reserve_inc": 200000,
+  "txn_count": 131,
+  "type": "ledgerClosed",
+  "validated_ledgers": "32570-97961142"
+}
+```
+
+#### orderbook_stream.rs
+Monitors XRP/RLUSD order book transactions.
+
+```json
+{
+  "close_time_iso": "2025-08-05T15:28:30Z",
+  "ledger_index": 97957834,
+  "hash": "3CF6C5F0C3793B0AA849265452AB83CFA042BA7E16FFE162A5DE29BAC12008FF",
+  "tx_json": {
+    "TransactionType": "OfferCreate",
+    "Account": "rpiFwLYi6Gb1ESHYorn2QG1WU5vw2u4exQ",
+    "TakerGets": "640593690",
+    "TakerPays": {
+      "currency": "524C555344000000000000000000000000000000",
+      "issuer": "rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+      "value": "1912.90885"
+    },
+    ...
+  },
+  "type": "transaction",
+  "validated": true
+}
 ```
 
 #### serverinfo_stream.rs
 Retrieves server info for each validated ledger.
 
 ```json
-Connected to the XRPL!
-Listening for ledger events and retrieving server info...
-Server Info:
 {
   "info": {
     "build_version": "2.5.0",
     "server_state": "full",
     "validated_ledger": {
-      "seq": 97961142,
-      "hash": "147AAE9D261F004674454AAABA484FDF930C83154E2EE0CE7416AD5BA1CC3A7E",
+      "seq": 97957829,
+      "hash": "29201F679D076F57AD6A264151DA839AD312BE8B9029DA4997CE433E59969BC3",
       ...
     },
     "uptime": 568402,
@@ -228,8 +175,41 @@ Server Info:
     ...
   }
 }
----
 ```
+
+#### transaction_stream.rs
+Monitors all validated transactions.
+
+```json
+{
+  "close_time_iso": "2025-08-05T15:30:00Z",
+  "ledger_index": 97957857,
+  "hash": "934BCC18778C363E6E44BDA041A3F51E985AE2B92EAD02919DEEF9C89D1F0E68",
+  "tx_json": {
+    "TransactionType": "OfferCreate",
+    "Account": "rfmdBKhtJw2J22rw1JxQcchQTM68qzE4N2",
+    ...
+  },
+  "type": "transaction",
+  "validated": true
+}
+```
+
+#### validation_stream.rs
+Captures validator votes.
+
+```json
+{
+  "cookie": "3755884282517439284",
+  "ledger_hash": "4828A52429B4805DEE51381FDDA7E89E1B76DA193A3B68239CBAFD75B3633B65",
+  "ledger_index": 97957809,
+  "type": "validationReceived",
+  "validated_hash": "D80ECC86AE12132B1543395C0A30F9BC58184BF3FEE1C075FA0F740865722B81",
+  ...
+}
+```
+
+
 
 ## Notes
 - All scripts connect to the public XRPL WebSocket server `wss://xrplcluster.com`.
