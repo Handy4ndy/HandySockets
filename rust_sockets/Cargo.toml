@@ -1,0 +1,18 @@
+[package]
+name = "rust_sockets"
+version = "0.1.0"
+edition = "2025"
+author = ["Handy_4ndy"]
+description = "A lightweight Rust library for monitoring XRP Ledger (XRPL) activity using WebSocket streams."
+license = "MIT"
+repository = "https://github.com/Handy4ndy/HandySockets/rust_sockets"
+homepage = "xspence.co.uk"
+keywords = ["xrpl", "websocket", "blockchain", "rust", "real-time"]
+categories = ["network-programming", "blockchain"]
+
+[dependencies]
+xrpl = "0.1.2"
+serde_json = "1.0"
+tokio = { version = "1.38", features = ["macros", "rt-multi-thread"] }
+tokio-tungstenite = { version = "0.20.1", features = ["native-tls"] }
+futures-util = "0.3.31"
