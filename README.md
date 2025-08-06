@@ -111,4 +111,4 @@ Fork the repository, add new scripts, or enhance existing ones in `js_sockets` o
 Handy_4ndy
 
 ## License
-MIT License (see `LICENSE` in each subdirectory).
+MIT License.
