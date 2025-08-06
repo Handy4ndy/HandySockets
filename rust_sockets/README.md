@@ -107,11 +107,11 @@ Tracks consensus phase changes.
   "type": "consensusPhase"
 }
 {
-  "consensus": "accepted",
+  "consensus": "estabilsh",
   "type": "consensusPhase"
 }
 {
-  "consensus": "estabilsh",
+  "consensus": "accepted",
   "type": "consensusPhase"
 }
 ```
