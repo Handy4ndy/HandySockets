@@ -1,10 +1,10 @@
 # Handy WebSockets for XRPL
 
-A lightweight JavaScript library for monitoring XRP Ledger (XRPL) activity using WebSocket streams. This project provides small, runnable scripts to subscribe to various XRPL streams, such as ledgers, transactions, consensus phases, and order book changes, using the `xrpl` library.
+A lightweight JavaScript collection for monitoring XRP Ledger (XRPL) activity using WebSocket streams. This project provides small, runnable scripts to subscribe to various XRPL streams, such as ledgers, transactions, consensus phases, and order book changes, using the `xrpl` library.
 
 ## Overview
 
-The `HandySockets` library includes scripts to connect to the XRPL via WebSocket (`wss://xrplcluster.com`) and log real-time updates for different streams. Each script is designed to be simple, standalone, and easy to run, making it ideal for developers exploring XRPL WebSocket APIs.
+The `HandySockets` collection includes scripts to connect to the XRPL via WebSocket (`wss://xrplcluster.com`) and log real-time updates for different streams. Each script is designed to be simple, standalone, and easy to run, making it ideal for developers exploring XRPL WebSocket APIs.
 
 ### Scripts and Their Purposes
 
