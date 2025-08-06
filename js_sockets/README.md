@@ -8,14 +8,14 @@ The `HandySockets` library includes scripts to connect to the XRPL via WebSocket
 
 ### Scripts and Their Purposes
 
-- **ledgerStream.js**: Subscribes to the `ledger` stream to monitor validated ledgers, logging details like ledger index, hash, and transaction count.
-- **consensusStream.js**: Tracks consensus phase changes (`open`, `establish`, `accepted`) during the XRPL consensus process.
-- **validationStream.js**: Monitors validation messages (votes) from XRPL validators during consensus.
-- **transactionStream.js**: Captures all validated transactions across the XRPL network.
 - **accountStream.js**: Tracks transactions affecting a specific account (e.g., `rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`).
-- **orderbookStream.js**: Monitors the XRP/RLUSD order book for transaction updates.
+- **consensusStream.js**: Tracks consensus phase changes (`open`, `establish`, `accepted`) during the XRPL consensus process.
 - **bookchangesStream.js**: Tracks order book changes across all trading pairs by subscribing to the `ledger` stream and requesting `book_changes`.
+- **ledgerStream.js**: Subscribes to the `ledger` stream to monitor validated ledgers, logging details like ledger index, hash, and transaction count.
+- **orderbookStream.js**: Monitors the XRP/RLUSD order book for transaction updates.
 - **serverinfoStream.js**: Retrieves server information for each validated ledger via the `ledger` stream and `server_info` command.
+- **transactionStream.js**: Captures all validated transactions across the XRPL network.
+- **validationStream.js**: Monitors validation messages (votes) from XRPL validators during consensus.
 
 ## Prerequisites
 
@@ -52,73 +52,6 @@ node ledgerStream.js
 
 Below are sample outputs from running the scripts, showing the type of data each captures.
 
-#### ledgerStream.js
-Monitors validated ledgers.
-
-```json
-{
-  "fee_base": 10,
-  "ledger_hash": "E13112ED9F5281383C142D6067C96049DFE679DBF338EF885875CAAC8834B679",
-  "ledger_index": 97957840,
-  "ledger_time": 807722931,
-  "reserve_base": 1000000,
-  "reserve_inc": 200000,
-  "txn_count": 131,
-  "type": "ledgerClosed",
-  "validated_ledgers": "32570-97957840"
-}
-```
-
-#### consensusStream.js
-Tracks consensus phase changes.
-
-```json
-{
-  "consensus": "accepted",
-  "type": "consensusPhase"
-}
-{
-  "consensus": "open",
-  "type": "consensusPhase"
-}
-{
-  "consensus": "establish",
-  "type": "consensusPhase"
-}
-```
-
-#### validationStream.js
-Captures validator votes.
-
-```json
-{
-  "cookie": "3755884282517439284",
-  "ledger_hash": "4828A52429B4805DEE51381FDDA7E89E1B76DA193A3B68239CBAFD75B3633B65",
-  "ledger_index": 97957809,
-  "type": "validationReceived",
-  "validated_hash": "D80ECC86AE12132B1543395C0A30F9BC58184BF3FEE1C075FA0F740865722B81",
-  ...
-}
-```
-
-#### transactionStream.js
-Monitors all validated transactions.
-
-```json
-{
-  "close_time_iso": "2025-08-05T15:30:00Z",
-  "ledger_index": 97957857,
-  "hash": "934BCC18778C363E6E44BDA041A3F51E985AE2B92EAD02919DEEF9C89D1F0E68",
-  "tx_json": {
-    "TransactionType": "OfferCreate",
-    "Account": "rfmdBKhtJw2J22rw1JxQcchQTM68qzE4N2",
-    ...
-  },
-  "type": "transaction",
-  "validated": true
-}
-```
-
 #### accountStream.js
 Tracks transactions for a specific account (e.g., `rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De`).
 
@@ -134,6 +67,63 @@ Tracks transactions for a specific account (e.g., `rMxCKbEDwqr76QuheSUMdEGf4B9xJ
   },
   "type": "transaction",
   "validated": true
+}
+```
+
+#### consensusStream.js
+Tracks consensus phase changes.
+
+```json
+{
+  "consensus": "open",
+  "type": "consensusPhase"
+}
+{
+  "consensus": "accepted",
+  "type": "consensusPhase"
+}
+{
+  "consensus": "establish",
+  "type": "consensusPhase"
+}
+```
+
+#### bookchangesStream.js
+Tracks order book changes across all trading pairs.
+
+```json
+{
+  "ledger_index": 97957849,
+  "ledger_hash": "589D0F6B0CC0FE57419BF9ADB9E91C774361B80803FEC8772D396D2A5362CC21",
+  "changes": [
+    {
+      "currency_a": "XRP_drops",
+      "currency_b": "rDgBV9WrwJ3WwtRWhkekMhDas3muFeKvoS/7372667800000000000000000000000000000000",
+      "close": "8.437525048902489",
+      "volume_a": "12000000",
+      "volume_b": "1422218"
+    },
+    ...
+  ],
+  "type": "bookChanges",
+  "validated": true
+}
+```
+
+#### ledgerStream.js
+Monitors validated ledgers.
+
+```json
+{
+  "fee_base": 10,
+  "ledger_hash": "E13112ED9F5281383C142D6067C96049DFE679DBF338EF885875CAAC8834B679",
+  "ledger_index": 97957840,
+  "ledger_time": 807722931,
+  "reserve_base": 1000000,
+  "reserve_inc": 200000,
+  "txn_count": 131,
+  "type": "ledgerClosed",
+  "validated_ledgers": "32570-97957840"
 }
 ```
 
@@ -161,28 +151,6 @@ Monitors XRP/RLUSD order book transactions.
 }
 ```
 
-#### bookchangesStream.js
-Tracks order book changes across all trading pairs.
-
-```json
-{
-  "ledger_index": 97957849,
-  "ledger_hash": "589D0F6B0CC0FE57419BF9ADB9E91C774361B80803FEC8772D396D2A5362CC21",
-  "changes": [
-    {
-      "currency_a": "XRP_drops",
-      "currency_b": "rDgBV9WrwJ3WwtRWhkekMhDas3muFeKvoS/7372667800000000000000000000000000000000",
-      "close": "8.437525048902489",
-      "volume_a": "12000000",
-      "volume_b": "1422218"
-    },
-    ...
-  ],
-  "type": "bookChanges",
-  "validated": true
-}
-```
-
 #### serverinfoStream.js
 Retrieves server info for each validated ledger.
 
@@ -200,6 +168,38 @@ Retrieves server info for each validated ledger.
     "peers": 33,
     ...
   }
+}
+```
+
+#### transactionStream.js
+Monitors all validated transactions.
+
+```json
+{
+  "close_time_iso": "2025-08-05T15:30:00Z",
+  "ledger_index": 97957857,
+  "hash": "934BCC18778C363E6E44BDA041A3F51E985AE2B92EAD02919DEEF9C89D1F0E68",
+  "tx_json": {
+    "TransactionType": "OfferCreate",
+    "Account": "rfmdBKhtJw2J22rw1JxQcchQTM68qzE4N2",
+    ...
+  },
+  "type": "transaction",
+  "validated": true
+}
+```
+
+#### validationStream.js
+Captures validator votes.
+
+```json
+{
+  "cookie": "3755884282517439284",
+  "ledger_hash": "4828A52429B4805DEE51381FDDA7E89E1B76DA193A3B68239CBAFD75B3633B65",
+  "ledger_index": 97957809,
+  "type": "validationReceived",
+  "validated_hash": "D80ECC86AE12132B1543395C0A30F9BC58184BF3FEE1C075FA0F740865722B81",
+  ...
 }
 ```
 
