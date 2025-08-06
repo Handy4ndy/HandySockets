@@ -79,11 +79,11 @@ Tracks consensus phase changes.
   "type": "consensusPhase"
 }
 {
-  "consensus": "accepted",
+  "consensus": "establish",
   "type": "consensusPhase"
 }
 {
-  "consensus": "establish",
+  "consensus": "accepted",
   "type": "consensusPhase"
 }
 ```
